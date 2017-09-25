@@ -34,7 +34,7 @@ function isGameWon() {
   let win = false;
   [
     [[0,0], [1,0], [2,0]],
-    [[0,0], [0,1], [1,2]],
+    [[0,0], [0,1], [0,2]],
     [[0,0], [1,1], [2,2]],
     [[1,0], [1,1], [1,2]],
     [[2,0], [2,1], [2,2]],
@@ -54,6 +54,7 @@ function checkWinCondition(condition) {
   let isWinning = true;
   condition.forEach(coord => {
     if(gameCells[coord[0]][coord[1]].innerText !== (isXTurn ? 'x' : 'o')) {
+
       isWinning = false;
       return;
     }
@@ -95,6 +96,7 @@ function playTurn(e) {
   target.innerText = token;
   target.setAttribute('class', `${target.getAttribute('class')} played-cell`);
 
+  console.log(gameCells);
   if(isGameWon()) {
     setTurnHeading(`${token.toUpperCase()} wins! Reset to play again!`);
     table.onclick = null;
