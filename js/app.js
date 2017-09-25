@@ -98,7 +98,6 @@ function playTurn(e) {
   target.innerText = token;
   target.setAttribute('class', `${target.getAttribute('class')} played-cell`);
 
-  console.log(gameCells);
   if(isGameWon()) {
     setTurnHeading(`${token.toUpperCase()} wins! Reset to play again!`);
     table.onclick = null;
