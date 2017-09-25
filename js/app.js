@@ -19,13 +19,12 @@ function createGameBoard() {
   for(let i = 0; i < 3; i++) {
     let tr = document.createElement('tr');
     tbody.appendChild(tr);
-    gameCells.push([]);
     for(let j = 0; j < 3; j++) {
       let td = document.createElement('td');
-      gameCells[gameCells.length-1].push(td);
+      gameCells.push(td);
       tr.appendChild(td);
       td.innerText = '';
-      td.setAttribute('class', 'game-cell');;
+      td.className = 'game-cell';
     }
   }
 }
@@ -33,14 +32,7 @@ function createGameBoard() {
 function isGameWon() {
   let win = false;
   [
-    [[0,0], [1,0], [2,0]],
-    [[0,0], [0,1], [0,2]],
-    [[0,0], [1,1], [2,2]],
-    [[1,0], [1,1], [1,2]],
-    [[2,0], [2,1], [2,2]],
-    [[2,0], [1,1], [0,2]],
-    [[0,1], [1,1], [2,1]],
-    [[0,2], [1,2], [2,2]]
+    [0,1,2], [3,4,5], [6,7,8], [0,4,8], [0,3,6], [1,4,7], [2,4,6], [2,5,8]
   ].forEach(con => {
     if(checkWinCondition(con)) {
       win = true;
@@ -52,17 +44,16 @@ function isGameWon() {
 
 function checkWinCondition(condition) {
   let isWinning = true;
-  condition.forEach(coord => {
-    if(gameCells[coord[0]][coord[1]].innerText !== (isXTurn ? 'x' : 'o')) {
-
+  condition.forEach(index => {
+    if(gameCells[index].innerText !== (isXTurn ? 'x' : 'o')) {
       isWinning = false;
       return;
     }
   });
 
   if(isWinning) {
-    condition.forEach(coord => {
-      gameCells[coord[0]][coord[1]].className += ' winning';
+    condition.forEach(index => {
+      gameCells[index].className += ' winning';
     });
   }
   return isWinning;
@@ -121,7 +112,7 @@ function resetBoard(e) {
 }
 
 function resetMainHeading() {
-  document.querySelectorAll('h1 div').forEach(span => {
-    span.setAttribute('class', '');
+  document.querySelectorAll('h1 div').forEach(div => {
+    div.className = '';
   });
 }
