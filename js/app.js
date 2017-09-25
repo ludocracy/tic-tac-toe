@@ -59,6 +59,12 @@ function checkWinCondition(condition) {
     }
   });
 
+  if(isWinning) {
+    condition.forEach(coord => {
+      let winningCell = gameCells[coord[0]][coord[1]];
+      winningCell.setAttribute('class', `${winningCell.getAttribute('class')} winning`);
+    })
+  }
   return isWinning;
 }
 
@@ -89,7 +95,7 @@ function playTurn(e) {
   target.innerText = token;
 
   if(isGameWon()) {
-    setTurnHeading(`${token} wins! Reset to play again!`);
+    setTurnHeading(`${token.toUpperCase()} wins! Reset to play again!`);
     table.onclick = null;
   } else if(turns == 9) {
     setTurnHeading('Draw! Reset to play again!');
@@ -99,7 +105,7 @@ function playTurn(e) {
   }
 }
 
-function resetBoard() {
+function resetBoard(e) {
   let table = document.querySelector('.game-board');
   table.removeChild(table.children[0]);
   gameCells = [];
