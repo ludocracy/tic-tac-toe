@@ -29,10 +29,15 @@ h2 span {
   height: 150px;
   width: 150px;
   text-align: center;
-  font-size: 130px;
+  font-size: 10px;
   &:hover {
     background-color: $background_color;
   }
+}
+
+.played-cell {
+  font-size: 140px;
+  transition: font-size 2s;
 }
 
 .winning {
