@@ -17,7 +17,6 @@ function createGameBoard() {
     tbody.appendChild(tr);
     for(let j = 0; j < 3; j++) {
       let td = document.createElement('td');
-      td.innerText = '';
       td.className = 'game-cell';
       gameCells.push(td);
       tr.appendChild(td);
