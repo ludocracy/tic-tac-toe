@@ -2,7 +2,6 @@ let gameCells, turns, isXTurn;
 let table = document.querySelector('.game-board');
 
 resetBoard();
-setTurnHeading();
 
 document.querySelector('button').addEventListener('click', resetBoard);
 
