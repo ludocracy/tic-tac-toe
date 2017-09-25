@@ -1,7 +1,5 @@
-let gameCells = [];
-let turns = 0;
+let gameCells, turns, isXTurn;
 let table = document.querySelector('.game-board');
-let isXTurn = true;
 
 resetBoard();
 setTurnHeading();
@@ -19,10 +17,10 @@ function createGameBoard() {
     tbody.appendChild(tr);
     for(let j = 0; j < 3; j++) {
       let td = document.createElement('td');
-      gameCells.push(td);
-      tr.appendChild(td);
       td.innerText = '';
       td.className = 'game-cell';
+      gameCells.push(td);
+      tr.appendChild(td);
     }
   }
 }
@@ -34,6 +32,9 @@ function isGameWon() {
   ].forEach(con => {
     if(checkWinCondition(con)) {
       win = true;
+      con.forEach(index => {
+        gameCells[index].className += ' winning';
+      });
       return;
     }
   });
@@ -49,11 +50,6 @@ function checkWinCondition(condition) {
     }
   });
 
-  if(isWinning) {
-    condition.forEach(index => {
-      gameCells[index].className += ' winning';
-    });
-  }
   return isWinning;
 }
 
@@ -75,10 +71,7 @@ function setTurnHeading(s='') {
 function playTurn(e) {
   let target = e.target;
 
-  // to avoid removing event listeners
-  if(target.innerText !== '') {
-    return;
-  }
+  if(target.innerText !== '') { return; }
 
   resetMainHeading();
   document.querySelectorAll('h1 div')[turns%3].className = 'rotator';
@@ -111,6 +104,7 @@ function resetBoard(e) {
   createGameBoard();
 }
 
+// removes classes from h1's inner divs
 function resetMainHeading() {
   document.querySelectorAll('h1 div').forEach(div => {
     div.className = '';
