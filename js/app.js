@@ -62,9 +62,8 @@ function checkWinCondition(condition) {
 
   if(isWinning) {
     condition.forEach(coord => {
-      let winningCell = gameCells[coord[0]][coord[1]];
-      winningCell.setAttribute('class', `${winningCell.getAttribute('class')} winning`);
-    })
+      gameCells[coord[0]][coord[1]].className += ' winning';
+    });
   }
   return isWinning;
 }
@@ -88,15 +87,16 @@ function playTurn(e) {
   let target = e.target;
   let token = isXTurn ? 'x' : 'o';
 
+  // to avoid removing event listeners
   if(target.innerText !== '') {
     return;
   }
 
   resetMainHeading();
-  document.querySelectorAll('h1 div')[turns%3].setAttribute('class', 'rotator');
+  document.querySelectorAll('h1 div')[turns%3].className = 'rotator';
   turns++;
   target.innerText = token;
-  target.setAttribute('class', `${target.getAttribute('class')} played-cell`);
+  target.className += ' played-cell';
 
   if(isGameWon()) {
     setTurnHeading(`${token.toUpperCase()} wins! Reset to play again!`);
