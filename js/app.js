@@ -1,13 +1,11 @@
 let gameCells = [];
 let turns = 0;
 let table = document.querySelector('.game-board');
-createGameBoard();
-
-// loop through turns
 let isXTurn = true;
+
+resetBoard();
 setTurnHeading();
 
-// make reset button work
 document.querySelector('button').addEventListener('click', resetBoard);
 
 // helper functions
@@ -45,7 +43,7 @@ function isGameWon() {
 function checkWinCondition(condition) {
   let isWinning = true;
   condition.forEach(index => {
-    if(gameCells[index].innerText !== (isXTurn ? 'x' : 'o')) {
+    if(gameCells[index].innerText !== getToken()) {
       isWinning = false;
       return;
     }
@@ -65,7 +63,7 @@ function setTurnHeading(s='') {
     if(s === '') {
       heading.innerText = 'Turn: ';
       let lastLetter = document.createElement('span');
-      lastLetter.innerText = `${isXTurn ? 'x' : 'o'}`;
+      lastLetter.innerText = getToken();
       heading.appendChild(lastLetter);
     } else {
       heading.innerText = s;
@@ -76,7 +74,6 @@ function setTurnHeading(s='') {
 // callbacks
 function playTurn(e) {
   let target = e.target;
-  let token = isXTurn ? 'x' : 'o';
 
   // to avoid removing event listeners
   if(target.innerText !== '') {
@@ -86,11 +83,11 @@ function playTurn(e) {
   resetMainHeading();
   document.querySelectorAll('h1 div')[turns%3].className = 'rotator';
   turns++;
-  target.innerText = token;
+  target.innerText = getToken();
   target.className += ' played-cell';
 
   if(isGameWon()) {
-    setTurnHeading(`${token.toUpperCase()} wins! Reset to play again!`);
+    setTurnHeading(`${getToken().toUpperCase()} wins! Reset to play again!`);
     table.onclick = null;
   } else if(turns == 9) {
     setTurnHeading('Draw! Reset to play again!');
@@ -100,9 +97,12 @@ function playTurn(e) {
   }
 }
 
+function getToken() {
+  return isXTurn ? 'x' : 'o';
+}
+
 function resetBoard(e) {
-  let table = document.querySelector('.game-board');
-  table.removeChild(table.children[0]);
+  table.children[0] ? table.removeChild(table.children[0]) : null;
   gameCells = [];
   isXTurn = true;
   turns = 0;
