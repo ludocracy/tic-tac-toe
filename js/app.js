@@ -64,7 +64,15 @@ function checkWinCondition(condition) {
 
 function setTurnHeading(s='') {
   setTimeout(() => {
-    document.querySelector('.whose-turn').innerText = s || `Turn: ${isXTurn ? 'x' : 'o'}`;
+    let heading = document.querySelector('.whose-turn');
+    if(s === '') {
+      heading.innerText = 'Turn: ';
+      let lastLetter = document.createElement('span');
+      lastLetter.innerText = `${isXTurn ? 'x' : 'o'}`;
+      heading.appendChild(lastLetter);
+    } else {
+      heading.innerText = s;
+    }
   }, 200);
 }
 
