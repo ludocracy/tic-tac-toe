@@ -7,6 +7,19 @@ body {
 
 h1 {
   font-size: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  .rotator {
+    animation: spin 1s linear;
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 h2 span {
@@ -36,8 +49,8 @@ h2 span {
 }
 
 .played-cell {
-  font-size: 140px;
-  transition: font-size 2s;
+  font-size: 130px;
+  transition: font-size 1s;
 }
 
 .winning {

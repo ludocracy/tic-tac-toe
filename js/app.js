@@ -92,6 +92,8 @@ function playTurn(e) {
     return;
   }
 
+  resetMainHeading();
+  document.querySelectorAll('h1 div')[turns%3].setAttribute('class', 'rotator');
   turns++;
   target.innerText = token;
   target.setAttribute('class', `${target.getAttribute('class')} played-cell`);
@@ -114,6 +116,13 @@ function resetBoard(e) {
   gameCells = [];
   isXTurn = true;
   turns = 0;
+  resetMainHeading();
   setTurnHeading();
   createGameBoard();
+}
+
+function resetMainHeading() {
+  document.querySelectorAll('h1 div').forEach(span => {
+    span.setAttribute('class', '');
+  });
 }
